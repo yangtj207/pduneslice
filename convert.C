@@ -1,6 +1,7 @@
 {
 
-  TFile f("/pnfs/dune/scratch/users/tjyang/v09_16_01/sps/sps/anahist.root");
+  //TFile f("/pnfs/dune/scratch/users/tjyang/v09_16_01/sps/sps/anahist.root");
+  TFile f("/pnfs/dune/scratch/users/tjyang/v09_22_00/sps/sps/anahist.root");
   TTree *spt = (TTree*)f.Get("sps/spt");
 
   int run, subrun, event;
@@ -8,6 +9,7 @@
   std::vector<double> *vy;
   std::vector<double> *vz;
   std::vector<double> *vcharge;
+  std::vector<int> *vtpc;
   std::vector<int> *vtrackid;
   std::vector<int> *vg4id;
 
@@ -18,6 +20,7 @@
   spt->SetBranchAddress("vy",&vy);
   spt->SetBranchAddress("vz",&vz);
   spt->SetBranchAddress("vcharge",&vcharge);
+  spt->SetBranchAddress("vtpc",&vtpc);
   spt->SetBranchAddress("vtrackid",&vtrackid);
   spt->SetBranchAddress("vg4id",&vg4id);
 
@@ -36,7 +39,13 @@
       pt.push_back((*vy)[j]);
       pt.push_back((*vz)[j]);
       pt.push_back((*vcharge)[j]);
-      ptmap[(*vg4id)[j]].push_back(pt);
+      int tpc = (*vtpc)[j];
+      if (tpc == 0 || tpc == 1 || tpc == 4 || tpc == 5 || tpc == 8 || tpc ==9){
+        ptmap[(*vg4id)[j]].push_back(pt);
+      }
+      else{
+        ptmap[-1*(*vg4id)[j]].push_back(pt);
+      }
     }
     outfile<<"Run "<<run<<" SubRun "<<subrun<<" Event "<<event<<endl;
     int oldid = -1;
