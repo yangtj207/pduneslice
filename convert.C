@@ -1,7 +1,8 @@
 {
 
   //TFile f("/pnfs/dune/scratch/users/tjyang/v09_16_01/sps/sps/anahist.root");
-  TFile f("/pnfs/dune/scratch/users/tjyang/v09_22_00/sps/sps/anahist.root");
+  //TFile f("/pnfs/dune/scratch/users/tjyang/v09_22_00/sps/sps/anahist.root");
+  TFile f("eventtree.root");
   TTree *spt = (TTree*)f.Get("sps/spt");
 
   int run, subrun, event;
@@ -47,7 +48,7 @@
         ptmap[-1*(*vg4id)[j]].push_back(pt);
       }
     }
-    outfile<<"Run "<<run<<" SubRun "<<subrun<<" Event "<<event<<endl;
+    outfile<<"#Run "<<run<<" SubRun "<<subrun<<" Event "<<event<<endl;
     int oldid = -1;
     int ntrks = 0;
     for (auto iter = ptmap.begin(); iter!=ptmap.end(); ++iter){

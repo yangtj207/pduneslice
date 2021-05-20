@@ -6,10 +6,10 @@ import matplotlib.pyplot as plt
 # Creating dataset
 data = np.genfromtxt("points.txt")
 
-colors = np.sin(data[:,0])
-x = data[:,1]
-y = data[:,2]
-z = data[:,3]
+colors = np.sin(data[1:,0])
+x = data[1:,1]
+y = data[1:,2]
+z = data[1:,3]
 
 
 # Creating figure
